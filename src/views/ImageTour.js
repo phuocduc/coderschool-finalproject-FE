@@ -12,7 +12,7 @@ export default function ImageTour() {
   const handleSubmit = async e => {
     e.preventDefault();
     const res = await fetch(
-      `https://127.0.0.1:5000/tours/${param.id}/pictures`,
+      `https://booking-tour-coderschool.herokuapp.com/tours/${param.id}/pictures`,
       {
         method: "POST",
         headers: {
@@ -32,7 +32,7 @@ export default function ImageTour() {
 
   const getTourImage = async () => {
     const res = await fetch(
-      `https://127.0.0.1:5000/tours/${param.id}/pictures`,
+      `https://booking-tour-coderschool.herokuapp.com/tours/${param.id}/pictures`,
       {
         method: "GET",
         headers: {
@@ -51,7 +51,7 @@ export default function ImageTour() {
   }, []);
 
   const remove_tourItem = async () => {
-    const res = await fetch(`https://127.0.0.1:5000/pictures/${param.id}`, {
+    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/pictures/${param.id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

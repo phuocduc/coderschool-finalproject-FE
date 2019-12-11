@@ -37,7 +37,7 @@ function App() {
   
 
   const getUser = async () => {
-    const res = await fetch("https://127.0.0.1:5000/getuser", {
+    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/getuser", {
       headers: {
         Authorization: `Token ${token}`
       }

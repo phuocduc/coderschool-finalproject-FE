@@ -18,7 +18,7 @@ export default function TourInfo() {
   console.log(tourInfo);
   const getTourImg = async () => {
     const res = await fetch(
-      `https://127.0.0.1:5000/tours/${param.id}/pictures`,
+      `https://booking-tour-coderschool.herokuapp.com/tours/${param.id}/pictures`,
       {
         method: "GET",
         headers: {
@@ -35,7 +35,7 @@ export default function TourInfo() {
 
   const getTourInfo = async () => {
     const response = await fetch(
-      `https://127.0.0.1:5000/destinations/${param.id}`
+      `https://booking-tour-coderschool.herokuapp.com/destinations/${param.id}`
     );
     const data = await response.json();
     setTourInfo(data.tour);
