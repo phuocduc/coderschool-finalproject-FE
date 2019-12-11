@@ -1,0 +1,25 @@
+.tourInfo-body{
+    background-color: #E6E2EB;
+    height: 100vh;
+}
+
+.tourInfo-wrapper{
+    height: 100%;
+}
+
+
+.title-productInfo{
+    color: #563D7C;
+}
+
+.tourInfoForm{
+    width: 100%;
+}
+
+.tour-form-child{
+    width:50%;
+    margin: 20px;
+}
+
+
+/*  */

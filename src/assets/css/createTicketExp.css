@@ -1,0 +1,18 @@
+.productInfo-body{
+    background-color: #E6E2EB;
+    height: 100%;
+}
+
+
+.product_info{
+    width:100%;
+    max-width: 547px;
+}
+
+.title-productInfo{
+    color: #563D7C;
+}
+
+.button-productInfo{
+    display: flex;
+}

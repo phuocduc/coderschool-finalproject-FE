@@ -1,0 +1,26 @@
+
+
+.ePage{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.eWrapper{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.eImgWraper{
+    background-image: url(../img/errorImg.jpg);
+    background-size: cover;
+    width: 227px;
+    height: 190px;
+}
+
+.eTitle{
+    font-size: 21pt;
+    font-weight: 500;
+}
