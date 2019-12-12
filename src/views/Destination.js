@@ -15,7 +15,7 @@ export default function Destination(props) {
         'Content-Type': 'application/json'
       }
     })
-
+    
     const data = await res.json()
     setTourInfo(data.tours)
   } 

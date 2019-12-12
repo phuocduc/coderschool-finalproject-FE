@@ -5,17 +5,45 @@ import Navibar from "../components/Navibar";
 import imageSlider from "../assets/img/sliderNotFound.JPG";
 import { Button, Modal } from "react-bootstrap";
 
-export default function TourInfo() {
+export default function TourInfo(props) {
   const [toursChild, setTourChild] = useState([]);
-  const [tourInfo, setTourInfo] = useState([]);
-
+  const [tourInfo, setTourInfo] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
+  const history = useHistory()
   const param = useParams();
-  const history = useHistory();
-  console.log(tourInfo);
+  const [input, setInput] = useState({
+    number: "",
+    dates: "",
+    languages: ""
+  });
+
+
+  const handleSaveBookTour = async () =>{
+    const response = await fetch(`https://booking-tour-coderschool.herokuapp.com/book-tour/${param.id}`,{
+      method: "POST",
+      headers:{
+        Accept: "application/json",
+        "Content-Type" : "application/json"
+      },
+      body:JSON.stringify(input)
+    })
+    
+    const data = await response.json()
+    if(data.state==="success")
+    {
+      history.push(`/checkout/${data.id}`)
+    }
+   
+  }
+
+
+  const handleInput = e => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
   const getTourImg = async () => {
     const res = await fetch(
       `https://booking-tour-coderschool.herokuapp.com/tours/${param.id}/pictures`,
@@ -44,6 +72,7 @@ export default function TourInfo() {
     getTourInfo();
     getTourImg();
   }, []);
+
 
   return (
     <div>
@@ -215,76 +244,91 @@ export default function TourInfo() {
                     </h2>
                   </div>
                   {/* form */}
-                  <form className="activity-search" id="formm">
-                    <div className="peoplepicker">
-                      <div className="summary">
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        <input
-                          type="number"
-                          min="0"
-                          className="input-sumary"
-                          placeholder="people.."
-                        />
+                  <form
+                    onChange={e => handleInput(e)}
+                    onSubmit={e => {
+                      e.preventDefault();
+                      console.log("test");
+                    }}
+                  >
+                    <div className="activity-search" id="formm">
+                      <div className="peoplepicker">
+                        <div className="summary">
+                          <i className="fa fa-users" aria-hidden="true"></i>
+                          <input
+                            type="number"
+                            min="0"
+                            name="number"
+                            className="input-sumary"
+                            placeholder="people.."
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="datepicker">
-                      <div className="input-group">
-                        <i
-                          class="fa fa-calendar-check-o"
-                          aria-hidden="true"
-                        ></i>
-                        <input type="date" min="0" className="date-sumarry" />
+                      <div className="datepicker">
+                        <div className="input-group">
+                          <i
+                            className="fa fa-calendar-check-o"
+                            aria-hidden="true"
+                          ></i>
+                          <input
+                            type="date"
+                            min="0"
+                            name="dates"
+                            className="date-sumarry"
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="languagepicker">
-                      <div className="language">
-                        <i class="fa fa-language mr-2" aria-hidden="true"></i>
-                        <select className="select-language">
-                          <option value="English">English</option>
-                          <option value="Chinese">Chinese</option>
-                          <option value="Dutch">Dutch</option>
-                          <option value="Italian">Italian</option>
-                          <option value="Japanese">Japanese</option>
-                          <option value="German">German</option>
-                          <option value="VietNam">VietNam</option>
-                          <option value="Russian">Russian</option>
-                        </select>
+                      <div className="languagepicker">
+                        <div className="language">
+                          <i className="fa fa-language mr-2" aria-hidden="true"></i>
+                          <select name="languages" className="select-language">
+                            <option value="English">English</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Dutch">Dutch</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Japanese">Japanese</option>
+                            <option value="German">German</option>
+                            <option value="VietNam">VietNam</option>
+                            <option value="Russian">Russian</option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
 
-              
-                    <Button variant="primary" onClick={handleShow} className="btn-block btn-outline-primary m-3 btn-check">
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        onClick={handleShow}
+                        className="btn-block btn-outline-primary m-3 btn-check"
+                      >
                         Check availability
-                    </Button>
+                      </Button>
 
-                    <Modal show={show} onHide={handleClose} animation={false}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Availability</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <form>
-                        <div>
-                          Number of Customer: 
+                      <Modal show={show} onHide={handleClose} animation={false}>
+                        <Modal.Header closeButton>
+                          <Modal.Title>Availability</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          <div>
+                            <div value={input.number}>
+                              Number of Customer: {input.number} people
+                            </div>
+                            <div value={input.dates}>Time: {input.dates}</div>
+                            <div value={input.languages}>
+                              Language: {input.languages}
+                            </div>
+                            <div value={tourInfo.prices * input.number}>
+                              price: {tourInfo.prices * input.number} đ&nbsp;{" "}
+                            </div>
+                          {props.user 
+                          ? <button  onClick={()=>handleSaveBookTour()}>Add to cart</button> 
+                          : <button onClick={()=>history.push('/login')}>Add to cart</button>} 
                           
                           </div>
-                        <div>
-                        Time:
-
-                        </div>
-                        
-                        <div>
-                        Language:
-
-                        </div>
-                        <button className="btn-primary">Book Tour</button>
-
-                        </form>
-                        
-                  
-                      </Modal.Body>
-                    </Modal>
+                        </Modal.Body>
+                      </Modal>
+                    </div>
                   </form>
                 </div>
               </div>

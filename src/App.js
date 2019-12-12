@@ -15,6 +15,7 @@ import TourInfo from "./views/TourInfo";
 import ImageTour from "./views/ImageTour";
 import CreateTicketExp from "./views/CreateTicketExp";
 import UpdateImages from "./views/UpdateImages";
+import Checkout from "./views/Checkout";
 
 function App() {
   // get from url 
@@ -44,7 +45,7 @@ function App() {
     });
     const data = await res.json();
     if (res.ok) {
-      setUser({ name: data.name, role: data.role });
+      setUser({ name: data.name, role: data.role, email:data.email });
       localStorage.setItem('token', token)
     }
 
@@ -72,6 +73,11 @@ function App() {
         path="/destinations"
         exact
         render={() => <Destination user={user} setUser={setUser} token={token}/>}
+      />
+      <Route
+        path="/checkout/:id"
+        exact
+        render={() => <Checkout user={user}/>}
       />
       <Route
         path="/destinations/:id"
