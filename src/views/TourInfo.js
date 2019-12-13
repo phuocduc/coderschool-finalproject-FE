@@ -22,7 +22,7 @@ export default function TourInfo(props) {
 
 
   const handleSaveBookTour = async () =>{
-    const response = await fetch(`https://127.0.0.1:5000/book-tour/${param.id}`,{
+    const response = await fetch(`https://booking-tour-coderschool.herokuapp.com/book-tour/${param.id}`,{
       method: "POST",
       headers:{
         Accept: "application/json",
@@ -46,7 +46,7 @@ export default function TourInfo(props) {
 
   const getTourImg = async () => {
     const res = await fetch(
-      `https://127.0.0.1:5000/tours/${param.id}/pictures`,
+      `https://booking-tour-coderschool.herokuapp.com/tours/${param.id}/pictures`,
       {
         method: "GET",
         headers: {
@@ -63,7 +63,7 @@ export default function TourInfo(props) {
 
   const getTourInfo = async () => {
     const response = await fetch(
-      `https://127.0.0.1:5000/destinations/${param.id}`
+      `https://booking-tour-coderschool.herokuapp.com/destinations/${param.id}`
     );
     const data = await response.json();
     setTourInfo(data.tour);

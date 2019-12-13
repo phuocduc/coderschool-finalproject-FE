@@ -15,7 +15,7 @@ export default function Adminpage(props) {
 
   console.log('tour',tour)
   const getTourAd = async () => {
-    const res = await fetch("https://127.0.0.1:5000/tours");
+    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/tours");
     const data = await res.json();
     setShowTourList(data.tours);
   };
@@ -28,7 +28,7 @@ export default function Adminpage(props) {
   const history = useHistory();
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch("https://127.0.0.1:5000/tours", {
+    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/tours", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -46,7 +46,7 @@ export default function Adminpage(props) {
     }
   };
   const remove_tour = async id => {
-    const res = await fetch(`https://127.0.0.1:5000/tours/${id}`, {
+    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/tours/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
