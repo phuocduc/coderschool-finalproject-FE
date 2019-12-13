@@ -559,3 +559,35 @@ header.masthead .intro-text .intro-heading {
   margin-top: -5px;
 }
 
+.services-img{
+  height: 600px;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+@media (max-width:768px) {
+.services-img{
+  height: 400px;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center ;
+}  
+
+.cover-text-mountain{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text-mountain{
+  text-align: center;
+}
+}
+
+.cover-text-mountain{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}

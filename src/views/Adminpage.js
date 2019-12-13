@@ -74,7 +74,7 @@ export default function Adminpage(props) {
     <div className="wrap-adminpage">
 
    
-   <Button variant="primary" onClick={handleShow}>
+   <Button className="mt-5" variant="primary" onClick={handleShow}>
         + Add Tour
       </Button>
   

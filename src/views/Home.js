@@ -7,17 +7,16 @@ import historyImg from "../assets/img/history-2.jpg";
 import feedback1 from "../assets/img/1.jpg";
 import feedback2 from "../assets/img/2.jpg";
 import feedback3 from "../assets/img/3.jpg";
+import climb_mountain from "../assets/img/climb_mountain.jpg";
 
 import "../assets/css/home.css";
 import TravelStatic from "../components/TravelStatistic";
 import Footer from "../components/Footer";
 
-
-
 export default function Home(props) {
   return (
     <div>
-      <Navibar user={props.user} setUser={props.setUser} token={props.token}/>
+      <Navibar user={props.user} setUser={props.setUser} token={props.token} />
 
       <header
         className="masthead"
@@ -37,7 +36,7 @@ export default function Home(props) {
             <a
               className="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
               role="button"
-              href="/destinations"
+              href="/destinations" id="destination"
             >
               Begin Your Adventure
             </a>
@@ -48,7 +47,9 @@ export default function Home(props) {
       <div className="article-list">
         <div className="container">
           <div className="intro">
-            <h2 className="text-center">The Reason Why You Should Visit Vietnam</h2>
+            <h2 className="text-center">
+              The Reason Why You Should Visit Vietnam
+            </h2>
             <p className="text-center">
               Vietnam is getting more and more popular nowadays as one of the
               most worth-exploring travel destinations in Southeast Asia.
@@ -95,43 +96,68 @@ export default function Home(props) {
 
       {/* part 4 */}
 
+      <div
+        className="services-img" id="service"
+        style={{ backgroundImage: `url(${climb_mountain})` }}
+      >
+        <div className="cover-text-mountain text-light">
+            <h2 className="p-2 text-mountain">
+              We deliver greate expericences and highly quality services to you
+            </h2>
+        </div>
+      </div>
+      {/* part 5 */}
+
       <div className="testimonials-clean">
         <div className="container">
-            <div className="intro">
-                <h2 className="text-center">Feedback from our customers</h2>
-                <p className="text-center">Our customers love us! Read what they have to say below. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
+          <div className="intro">
+            <h2 className="text-center" id="feedback">Feedback from our customers</h2>
+            <p className="text-center">
+              Our customers love us! Read what they have to say below. Aliquam
+              sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet
+              vitae.
+            </p>
+          </div>
+          <div className="row people">
+            <div className="col-md-6 col-lg-4 item">
+              <div className="box">
+                <p className="description">
+                  I love to booking tour on this page.
+                </p>
+              </div>
+              <div className="author">
+                <img className="rounded-circle" src={feedback1} />
+                <h5 className="name">Ben Johnson</h5>
+                <p className="title">CEO of Company Inc.</p>
+              </div>
             </div>
-            <div className="row people">
-                <div className="col-md-6 col-lg-4 item">
-                    <div className="box">
-                        <p className="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
-                    </div>
-                    <div className="author"><img className="rounded-circle" src={feedback1}/>
-                        <h5 className="name">Ben Johnson</h5>
-                        <p className="title">CEO of Company Inc.</p>
-                    </div>
-                </div>
-                <div className="col-md-6 col-lg-4 item">
-                    <div className="box">
-                        <p className="description">Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id.</p>
-                    </div>
-                    <div className="author"><img className="rounded-circle" src={feedback3}/>
-                        <h5 className="name">Carl Kent</h5>
-                        <p className="title">Founder of Style Co.</p>
-                    </div>
-                </div>
-                <div className="col-md-6 col-lg-4 item">
-                    <div className="box">
-                        <p className="description">Aliquam varius finibus est, et interdum justo suscipit. Vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.</p>
-                    </div>
-                    <div className="author"><img className="rounded-circle" src={feedback2}/>
-                        <h5 className="name">Emily Clark</h5>
-                        <p className="title">Owner of Creative Ltd.</p>
-                    </div>
-                </div>
+            <div className="col-md-6 col-lg-4 item">
+              <div className="box">
+                <p className="description">
+                  Good.......
+                </p>
+              </div>
+              <div className="author">
+                <img className="rounded-circle" src={feedback3} />
+                <h5 className="name">Ku Bin</h5>
+                <p className="title">Founder of Style Co.</p>
+              </div>
             </div>
+            <div className="col-md-6 col-lg-4 item">
+              <div className="box">
+                <p className="description">
+                 Ngon lành
+                </p>
+              </div>
+              <div className="author">
+                <img className="rounded-circle" src={feedback2} />
+                <h5 className="name">Thảo Mai</h5>
+                <p className="title">Owner of Creative Ltd.</p>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
       {/* part footer*/}
 
