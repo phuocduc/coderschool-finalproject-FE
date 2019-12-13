@@ -7,7 +7,7 @@ export default function Register() {
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/register/",{
+    const res = await fetch("https://127.0.0.1:5000/register/",{
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

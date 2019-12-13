@@ -4,14 +4,20 @@ import headerBg from "../assets/img/header-bg.jpg";
 import foodImg from "../assets/img/food-2.jpg";
 import tourImg from "../assets/img/tour-2.jpg";
 import historyImg from "../assets/img/history-2.jpg";
+import feedback1 from "../assets/img/1.jpg";
+import feedback2 from "../assets/img/2.jpg";
+import feedback3 from "../assets/img/3.jpg";
+
 import "../assets/css/home.css";
 import TravelStatic from "../components/TravelStatistic";
 import Footer from "../components/Footer";
 
+
+
 export default function Home(props) {
   return (
     <div>
-      <Navibar user={props.user} token={props.token} setUser = {props.setUser}/>
+      <Navibar user={props.user} setUser={props.setUser} token={props.token}/>
 
       <header
         className="masthead"
@@ -31,7 +37,7 @@ export default function Home(props) {
             <a
               className="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
               role="button"
-              href="#services"
+              href="/destinations"
             >
               Begin Your Adventure
             </a>
@@ -86,6 +92,46 @@ export default function Home(props) {
       {/* part 3*/}
 
       <TravelStatic />
+
+      {/* part 4 */}
+
+      <div className="testimonials-clean">
+        <div className="container">
+            <div className="intro">
+                <h2 className="text-center">Feedback from our customers</h2>
+                <p className="text-center">Our customers love us! Read what they have to say below. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
+            </div>
+            <div className="row people">
+                <div className="col-md-6 col-lg-4 item">
+                    <div className="box">
+                        <p className="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+                    </div>
+                    <div className="author"><img className="rounded-circle" src={feedback1}/>
+                        <h5 className="name">Ben Johnson</h5>
+                        <p className="title">CEO of Company Inc.</p>
+                    </div>
+                </div>
+                <div className="col-md-6 col-lg-4 item">
+                    <div className="box">
+                        <p className="description">Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id.</p>
+                    </div>
+                    <div className="author"><img className="rounded-circle" src={feedback3}/>
+                        <h5 className="name">Carl Kent</h5>
+                        <p className="title">Founder of Style Co.</p>
+                    </div>
+                </div>
+                <div className="col-md-6 col-lg-4 item">
+                    <div className="box">
+                        <p className="description">Aliquam varius finibus est, et interdum justo suscipit. Vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.</p>
+                    </div>
+                    <div className="author"><img className="rounded-circle" src={feedback2}/>
+                        <h5 className="name">Emily Clark</h5>
+                        <p className="title">Owner of Creative Ltd.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
       {/* part footer*/}
 

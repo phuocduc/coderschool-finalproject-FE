@@ -109,7 +109,7 @@ export default function TravelStatistic() {
     }
   });
 
-  return   <div className="count-part m-5">
+  return   <div className="count-part">
   
 
   <h1>Travel Statistical</h1>

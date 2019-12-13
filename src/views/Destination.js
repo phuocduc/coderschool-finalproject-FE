@@ -8,7 +8,7 @@ export default function Destination(props) {
   const [tourInfos, setTourInfo] = useState([])
   const history = useHistory()
   const getTour = async () =>{
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/tours",{
+    const res = await fetch("https://127.0.0.1:5000/tours",{
       method : "GET",
       headers:{
         'Accept' : 'application/json',

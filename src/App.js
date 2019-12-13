@@ -30,27 +30,32 @@ function App() {
 
   const [token, setToken] = useState(localStorage.getItem("token")||accessToken); // not sure token is valid, call getUser to check token
   
-  useEffect(() => {
-    getUser();
-    
-  }, []);
-
   
 
   const getUser = async () => {
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/getuser", {
-      headers: {
-        Authorization: `Token ${token}`
+      const res = await fetch("https://127.0.0.1:5000/getuser", {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      });
+      if (res.status !== 200) return;
+      const data = await res.json();
+      if (res.ok) {
+          setUser({ name: data.name, role: data.role, email:data.email });
+          localStorage.setItem('token', token)
       }
-    });
-    const data = await res.json();
-    if (res.ok) {
-      setUser({ name: data.name, role: data.role, email:data.email });
-      localStorage.setItem('token', token)
-    }
+      
+
+  
 
     // window.history.replaceState({}, document.title, "/");
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  
 
   return (
     <Switch>

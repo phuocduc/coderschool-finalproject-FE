@@ -11,7 +11,7 @@ export default function Checkout(props) {
   const param = useParams();
   const getBook_tour = async () => {
     const response = await fetch(
-      `https://booking-tour-coderschool.herokuapp.com/book-tour/${param.id}`
+      `https://127.0.0.1:5000/book-tour/${param.id}`
     );
     const data = await response.json();
     setBook_tour(data.book_tour);
@@ -27,7 +27,7 @@ export default function Checkout(props) {
 
   const handleSubmit = async (e) =>{
       e.preventDefault()
-      const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/checkout/${param.id}`,{
+      const res = await fetch(`https://127.0.0.1:5000/checkout/${param.id}`,{
         method : "POST",
         headers:{
           Accept: 'application/json',

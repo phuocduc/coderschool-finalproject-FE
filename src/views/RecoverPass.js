@@ -11,7 +11,7 @@ export default function RecoverPass(props) {
     const handleSubmit = async (e) =>{
         e.preventDefault()
         console.log(recover)
-        const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/new_password`,  {
+        const res = await fetch(`https://127.0.0.1:5000/new_password`,  {
           method:"POST",
           headers: {
             'Accept': 'application/json',

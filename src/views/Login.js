@@ -10,7 +10,7 @@ export default function Login(props) {
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/login/",{
+    const res = await fetch("https://127.0.0.1:5000/login",{
       method:"POST",
       headers: {
         'Accept': 'application/json',
@@ -18,7 +18,9 @@ export default function Login(props) {
       },
       body: JSON.stringify(userLogin)
     })
+    console.log(res,"sdfsd")
     const data = await res.json()
+
       if (data.state === "NoUser")
       {
         alert("email do not exist")
@@ -66,7 +68,7 @@ export default function Login(props) {
           <button className="btn btn-primary btn-block" type="submit">
             Log In
           </button>
-          <button className="btn btn-primary btn-block" onClick={()=>window.location.replace('https://booking-tour-coderschool.herokuapp.com/login/facebook')}>
+          <button className="btn btn-primary btn-block" onClick={()=>window.location.replace('https://127.0.0.1:5000/login/facebook')}>
            Facebook
           </button>
         </div>
