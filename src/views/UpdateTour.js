@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import {useParams, useHistory} from 'react-router-dom'
 import '../assets/css/updateTour.css'
+import { useAlert } from 'react-alert'
 
 export default function UpdateTour() {
     const [tour, setTour] = useState({})
     const [tourEdit, setTourEdit] = useState(null)
     const param = useParams()
     const history = useHistory()
+    const alert = useAlert()
     const getTourInfo = async () =>{
         const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/tours/${param.id}`,{
             method:'GET',
@@ -47,9 +49,11 @@ export default function UpdateTour() {
         const data = await res.json()
         if (data.state === "success_change")
         {
-            alert("change success")
             history.push("/dadmin")
-            window.location.reload(false)
+            getTourInfo()
+            alert.show("Update Success",{
+                type:'success'
+            })
         }
       }
     

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import "../assets/css/tourInfo.css";
-import Navibar from "../components/Navibar";
 import imageSlider from "../assets/img/sliderNotFound.JPG";
 import { Button, Modal } from "react-bootstrap";
+import Footer from "../components/Footer";
+import {useAlert} from 'react-alert'
 
 export default function TourInfo(props) {
   const [toursChild, setTourChild] = useState([]);
@@ -11,34 +12,45 @@ export default function TourInfo(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
-  const history = useHistory()
+
+  const history = useHistory();
   const param = useParams();
+  const alert = useAlert()
   const [input, setInput] = useState({
     number: "",
     dates: "",
     languages: ""
   });
 
+  const handleSaveBookTour = async () => {
+    const response = await fetch(
+      `https://booking-tour-coderschool.herokuapp.com/book-tour/${param.id}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(input)
+      }
+    );
 
-  const handleSaveBookTour = async () =>{
-    const response = await fetch(`https://booking-tour-coderschool.herokuapp.com/book-tour/${param.id}`,{
-      method: "POST",
-      headers:{
-        Accept: "application/json",
-        "Content-Type" : "application/json"
-      },
-      body:JSON.stringify(input)
-    })
-    
-    const data = await response.json()
-    if(data.state==="success")
-    {
-      history.push(`/checkout/${data.id}`)
+    const data = await response.json();
+    if (data.state === "success") {
+      history.push(`/checkout/${data.id}`);
     }
-   
-  }
+  };
 
+  // const formatCurrency = () =>{
+  //   const num = tourInfo.prices
+  //   console.log('num',num)
+  //   const format = num.toLocaleString()
+  //   return format
+  // }
+
+  // useEffect(()=>{
+  //   formatCurrency()
+  // },[])
 
   const handleInput = e => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -73,14 +85,11 @@ export default function TourInfo(props) {
     getTourImg();
   }, []);
 
-
   return (
     <div>
-      <Navibar />
-
-      <div className="simple-slider container-fluid">
-        <div className="activity-title-container">
-          <h1>{tourInfo.title}</h1>
+      <div className="simple-slider container-fluid mt-3">
+        <div className="activity-title-container container-fluid">
+          <h1 className="m-5">{tourInfo.title}</h1>
         </div>
         <div
           id="carouselExampleIndicators"
@@ -232,7 +241,7 @@ export default function TourInfo(props) {
                       Cancellation policy
                     </span>
                     <br />
-                    <p className="key-audio-detail">
+                    <p className="key-audio-detail" id="formm">
                       This activity is non-refundable
                     </p>
                   </div>
@@ -251,7 +260,7 @@ export default function TourInfo(props) {
                       console.log("test");
                     }}
                   >
-                    <div className="activity-search" id="formm">
+                    <div className="activity-search">
                       <div className="peoplepicker">
                         <div className="summary">
                           <i className="fa fa-users" aria-hidden="true"></i>
@@ -282,7 +291,10 @@ export default function TourInfo(props) {
 
                       <div className="languagepicker">
                         <div className="language">
-                          <i className="fa fa-language mr-2" aria-hidden="true"></i>
+                          <i
+                            className="fa fa-language mr-2"
+                            aria-hidden="true"
+                          ></i>
                           <select name="languages" className="select-language">
                             <option value="English">English</option>
                             <option value="Chinese">Chinese</option>
@@ -307,24 +319,53 @@ export default function TourInfo(props) {
 
                       <Modal show={show} onHide={handleClose} animation={false}>
                         <Modal.Header closeButton>
-                          <Modal.Title>Availability</Modal.Title>
+                          <Modal.Title>Your Tour Detail</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                           <div>
-                            <div value={input.number}>
-                              Number of Customer: {input.number} people
+                            <div className="m-3">
+                  <h4>{tourInfo.title}</h4>
+                              <div value={input.number}>
+                                <span className="mr-5">
+                                  Client No:
+                                  </span>
+                                 People {input.number} x ₫&nbsp;{tourInfo.prices ? tourInfo.prices.toLocaleString() : "none"}
+                              </div>
+                              <div value={input.dates}>
+                                  <span className="mr-3">
+                                    Booking Date: 
+                                    </span>
+                                   {input.dates}
+                              </div>
+
+                              <div value={input.languages}>
+                               <span className="mr-5">
+                                 Language:
+                                 </span> 
+                                  {input.languages}
+                              </div>
+                              <div value={tourInfo.prices * input.number}>
+                               <span className="mr-5">
+                                 Amount:{"   "}
+                                 </span> 
+                                {tourInfo.prices
+                                  ? (
+                                      tourInfo.prices * input.number
+                                    ).toLocaleString()
+                                  : "none"}{" "}
+                                đ&nbsp;{" "}
+                              </div>
                             </div>
-                            <div value={input.dates}>Time: {input.dates}</div>
-                            <div value={input.languages}>
-                              Language: {input.languages}
-                            </div>
-                            <div value={tourInfo.prices * input.number}>
-                              price: {tourInfo.prices * input.number} đ&nbsp;{" "}
-                            </div>
-                          {props.user 
-                          ? <button  onClick={()=>handleSaveBookTour()}>Add to cart</button> 
-                          : <button onClick={()=>history.push('/login')}>Add to cart</button>} 
-                          
+                            <button
+                              className="btn-block btn btn-primary"
+                              onClick={() => {
+                                props.user
+                                  ? handleSaveBookTour()
+                                  : history.push("/login")
+                              }}
+                            >
+                              Go To Checkout
+                            </button>
                           </div>
                         </Modal.Body>
                       </Modal>
@@ -340,7 +381,10 @@ export default function TourInfo(props) {
                   <p className="price">
                     <span className="price-from">From</span>
                     <strong className="price-actual">
-                      đ&nbsp;{tourInfo.prices}
+                      đ&nbsp;
+                      {tourInfo.prices
+                        ? tourInfo.prices.toLocaleString()
+                        : "none"}
                     </strong>
                     <span className="price-from">per person</span>
                   </p>
@@ -350,7 +394,7 @@ export default function TourInfo(props) {
                     </a>
                   </div>
                 </div>
-                <div className="activity-utils">
+                <div className="activity-utils p-3">
                   <ul>
                     <li className="activity-utils-checklist-item box-item icon-heart">
                       <a>
@@ -378,6 +422,7 @@ export default function TourInfo(props) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

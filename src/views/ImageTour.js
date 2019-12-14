@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/tourItem.css";
 import { useParams, useHistory } from "react-router-dom";
-import Navibar from '../components/Navibar'
+import {useAlert} from 'react-alert'
+
 export default function ImageTour() {
   const [tourImg, setTourImg] = useState({});
   const [getTourItems, setGetTourItem] = useState([]);
-  console.log("getTourItem", tourImg);
   const param = useParams();
-  console.log(param.id);
   const history = useHistory();
+  const alert = useAlert()
   const handleSubmit = async e => {
     e.preventDefault();
     const res = await fetch(
@@ -25,7 +25,9 @@ export default function ImageTour() {
     if (res.status !== 200) return;
     const data = await res.json();
     if (data.state === "success") {
-      alert("add success information");
+      alert.show("add success information",{
+        type:'success'
+      });
       getTourImage(param.id);
     }
   };
@@ -42,7 +44,6 @@ export default function ImageTour() {
       }
     );
     const data = await res.json();
-    console.log(data.Image, 'data here');
     setGetTourItem(data.Image);
   };
 
@@ -60,16 +61,13 @@ export default function ImageTour() {
     });
     const data = await res.json();
     if (data.state === "success") {
-      alert("delete success");
+      alert.show("delete success");
       getTourImage();
     }
   };
 
   return (
     <div>
-      <Navibar/>
-
- 
     <div className="container-fluid tourInfo-body">
       <div className="d-flex justify-content-center flex-row align-items-center tourInfo-wrapper">
         <h1 className="text-center mb-5 title-productInfo">

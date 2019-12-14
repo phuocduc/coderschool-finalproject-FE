@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../assets/css/navibar.css";
 import { useHistory } from "react-router-dom";
+import {useAlert} from 'react-alert'
 
 export default function Navibar(props) {
   // console.log(props.user)
   const history = useHistory();
+  const alert = useAlert()
   const doLogout = async () => {
     const res = await fetch("https://booking-tour-coderschool.herokuapp.com/logout", {
       headers: {
@@ -19,6 +21,7 @@ export default function Navibar(props) {
         localStorage.clear("token");
         props.setUser(null);
         history.push("/");
+        alert.show("See you later!")
       }
     }
   };

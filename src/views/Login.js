@@ -3,11 +3,13 @@ import "../assets/css/loginForm.css";
 import "../assets/fonts/ionicons.min.css";
 import {useHistory} from 'react-router-dom'
 
+import { useAlert } from 'react-alert'
+
 export default function Login(props) {
   const [userLogin, setUserLogin] = useState({})
 
   const history = useHistory()
-
+  const alert = useAlert()
   const handleSubmit = async (e) =>{
     e.preventDefault()
     const res = await fetch("https://booking-tour-coderschool.herokuapp.com/login",{
@@ -18,22 +20,27 @@ export default function Login(props) {
       },
       body: JSON.stringify(userLogin)
     })
-    console.log(res,"sdfsd")
     const data = await res.json()
 
-      if (data.state === "NoUser")
+      if (data.state === "no_user")
       {
-        alert("email do not exist")
+        alert.show("Please register your email first!")
       }
       if (data.state === "WrongPass")
       {
-        alert("wrong pass")
+        alert.show("wrong pass", {
+          timeout:3000,
+          type:"error"
+        })
       }
       if (data.state === "success")
       {
         props.setUser({name:data.user, role: data.role})
         localStorage.setItem("token", data.token)
         history.push("/")
+        alert.show("Login Success",{
+          type:'success'
+        })
       }
   }
 

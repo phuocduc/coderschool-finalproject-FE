@@ -332,3 +332,11 @@
   color:white;
 }
 
+
+@media (max-width: 736px){
+  .activity-title-container{
+    text-align: center;
+  }
+}
+
+

@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import {useParams, useHistory} from 'react-router-dom'
 import '../assets/css/updateTour.css'
+import {useAlert} from 'react-alert'
 
 export default function UpdateImages() {
     const [tourImg, setTourImg] = useState(null)
     const [getImages, setGetImage] = useState({})
     const param = useParams()
-    console.log('sfds', tourImg)
+    const alert = useAlert()
     const history = useHistory()
     const getTourImages = async () =>{
         const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/pictures/${param.id}`,{
@@ -26,7 +27,7 @@ export default function UpdateImages() {
             img_third: data.image.img_third,
             content_third: data.image.content_third
         })
-    }
+        }
 
     useEffect(()=>{
         getTourImages()
@@ -46,8 +47,8 @@ export default function UpdateImages() {
         const data = await res.json()
         if (data.state == "success")
         {
-            alert("update tour detail done")
             history.push(`/tours/${data.tour_id}/pictures`)
+            alert.show("update tour detail done")
         }
     }
 

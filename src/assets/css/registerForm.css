@@ -8,6 +8,8 @@
     width: auto;
     background: url(../img/meeting.jpg);
     background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
   
   .register-photo .form-container {

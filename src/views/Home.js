@@ -97,7 +97,7 @@ export default function Home(props) {
       {/* part 4 */}
 
       <div
-        className="services-img" id="service"
+        className="services-img mt-5" id="service"
         style={{ backgroundImage: `url(${climb_mountain})` }}
       >
         <div className="cover-text-mountain text-light">
@@ -163,11 +163,6 @@ export default function Home(props) {
 
       <Footer />
 
-      <div className="gototop js-top">
-        <a href="#" className="js-gotop">
-          <i className="icon-arrow-up">sdfdsf</i>
-        </a>
-      </div>
     </div>
   );
 }

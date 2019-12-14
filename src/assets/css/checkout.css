@@ -4,16 +4,44 @@
   box-sizing: border-box;
 }
 
-.wrap-checkout {
+.wrap-checkoutt {
   display: flex;
   justify-content: space-around;
 }
 
+
+
 .hr-checkout{
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
 }
 
 
 .img-booktour{
   width: 100%;
+}
+
+.wrap-checkoutInfo{
+  border: solid 1px burlywood;
+  border-top: solid 5px blue;
+}
+
+.checkout-prices{
+  font-size: 20pt;
+  font-weight: 500;
+}
+
+.noaddingfees{
+  font-size: 9pt;
+  text-align: right;
+  color: blue;
+}
+
+.agreeTicket{
+  font-size: 10pt;
+  font-weight: 300;
+}
+
+.checkout-info{
+  background-size: cover;
 }

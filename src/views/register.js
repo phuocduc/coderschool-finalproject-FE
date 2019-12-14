@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import "../assets/css/registerForm.css";
+import {useAlert} from 'react-alert'
 
 export default function Register() {
   const [userRegister, setUserRegister] = useState({});
-
+  const alert = useAlert()
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
@@ -18,7 +19,14 @@ export default function Register() {
     const data = await res.json()
     if(data.state === "success")
     {
-       return alert("success")
+       alert.show("Register Success",{
+         type:"success"
+       })
+    }
+    if(data.state === "user_exist"){
+      alert.show("Email had registed already",{
+        type:'info'
+      })
     }
   }
 
