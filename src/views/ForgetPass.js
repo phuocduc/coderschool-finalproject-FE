@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "../assets/css/loginForm.css";
 import "../assets/fonts/ionicons.min.css";
+import {useAlert} from 'react-alert'
 
 export default function ForgetPass(props) {
   const [forgetUser, setForgetUser] = useState({});
- 
+  const alert = useAlert()
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/forget/", {
+    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/forget", {
         method:"POST",
         headers: {
           'Accept': 'application/json',
@@ -18,7 +19,9 @@ export default function ForgetPass(props) {
     const data = await res.json()
     if (data.state === "sucess")
     {
-      alert("send mail success")
+      alert.show("please check your mailbox", {
+        type:'success'
+      })
     }
 
   };
