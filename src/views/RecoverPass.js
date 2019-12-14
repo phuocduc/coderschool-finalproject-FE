@@ -2,15 +2,16 @@ import React, {useState} from 'react'
 import "../assets/css/loginForm.css";
 import "../assets/fonts/ionicons.min.css";
 import {useParams, useHistory} from 'react-router-dom';
+import {useAlert} from 'react-alert'
 
 export default function RecoverPass(props) {
   const params = useParams()
   const history = useHistory()
   const [recover ,setRecover] = useState({token:params['token']})
+  const alert = useAlert()
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        console.log(recover)
         const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/new_password`,  {
           method:"POST",
           headers: {
@@ -21,8 +22,10 @@ export default function RecoverPass(props) {
         })
         const data = await res.json()
         if (data.state === "success"){
-          alert("change password success")
           history.push("/login")
+          alert.show("Change password success",{
+            type:'success'
+          })
         }
 
         
