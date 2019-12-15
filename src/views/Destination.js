@@ -3,27 +3,60 @@ import Navibar from "../components/Navibar";
 import "../assets/css/destination.css";
 import { useHistory } from "react-router-dom";
 import bg_desti from "../assets/img/bg_desti.jpg";
-import Footer from '../components/Footer'
+import Footer from "../components/Footer";
 
 export default function Destination(props) {
   const [tourInfos, setTourInfo] = useState([]);
+  const [cloneTourInfo, setCloneTourInfo] = useState([])
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchPrice, setSearchPrice] = useState({number : ""})
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+
+  useEffect(() => {
+    const results = cloneTourInfo.filter(el =>
+      el.title.includes(searchTerm)
+    );
+    setTourInfo(results);
+  }, [searchTerm]);
+
+
   const history = useHistory();
   const getTour = async () => {
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/tours", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+    const res = await fetch(
+      "https://booking-tour-coderschool.herokuapp.com/tours",
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
       }
-    });
+      );
 
     const data = await res.json();
+
     setTourInfo(data.tours);
+    setCloneTourInfo(data.tours)
   };
 
   useEffect(() => {
     getTour();
   }, []);
+
+
+
+const handleChoosePrices = (e) =>{
+  setSearchPrice({...searchPrice, [e.target.name]: e.target.value})
+  const priceSplit = e.target.value.split("-")
+  const result = cloneTourInfo.filter(x => x.prices >= priceSplit[0] && x.prices 
+    <= priceSplit[1])
+  setTourInfo(result)
+}
+
+
   return (
     <div>
       <Navibar user={props.user} token={props.token} setUser={props.setUser} />
@@ -39,9 +72,42 @@ export default function Destination(props) {
           </div>
         </div>
       </div>
-      <div className="d-flex justify-content-center m-5">
+      <div className="d-flex justify-content-center m-4">
         <h1 className="title-desti">Destinations</h1>
       </div>
+
+
+      
+
+      {/* tim */}
+      <div className="d-flex justify-content-center">
+
+      <div className="search-tour-wrapper">
+
+      <input
+        placeholder="Where you want to go..."
+        name="searchTour"
+        type="text"
+        className="search-tour"
+        value={searchTerm}
+        onChange={handleChange}
+        />
+        <i className="fa fa-search searchIcon" aria-hidden="true"></i>
+
+        </div>
+        </div>
+     <div className="mb-5 mt-2 d-flex justify-content-center">
+
+        <select className="btn btn-outline-danger" name="pick-price" onChange={(e)=>handleChoosePrices(e)}>
+          <option value="0-90000000">-- Choose Tour Prices --</option>
+          <option value="0-5000000">under 5 million VND</option>
+          <option value="5000000-10000000">From 5 -> 10 million VND</option>
+          <option value="10000000-50000000">From 10 -> 50 million VND</option>
+          <option value="50000000-90000000">Over 50 million VND</option>
+        </select>
+     </div>
+      {/* tim test end */}
+
       <div className="gtco-section">
         <div className="gtco-container">
           <div className="row gtco-card-info">
@@ -82,9 +148,7 @@ export default function Destination(props) {
           </div>
         </div>
       </div>
-    <Footer/>
+      <Footer />
     </div>
-
-
   );
 }

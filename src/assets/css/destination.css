@@ -370,3 +370,28 @@
 .title-desti{
     font-size:3.5rem;
 }
+
+.search-tour-wrapper{
+  display: flex;
+
+  max-width: 400px;
+  width: 100%;
+  border: solid red;
+  align-items: center;
+  border-radius: 50px;
+  justify-content: center;
+
+}
+
+.search-tour{
+  width: 80%;
+  padding: 5px;
+    margin: 7px;
+    border: none;
+    outline: none;
+}
+
+
+.searchIcon{
+  font-size:15pt
+}
