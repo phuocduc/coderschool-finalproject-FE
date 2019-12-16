@@ -12,7 +12,7 @@ export default function Checkout(props) {
 
   const getBook_tour = async () => {
     const response = await fetch(
-      `https://booking-tour-coderschool.herokuapp.com/book-tour/${param.id}`
+      `${process.env.REACT_APP_API_URL}/book-tour/${param.id}`
     );
     const data = await response.json();
     setBook_tour(data.book_tour);
@@ -24,7 +24,7 @@ export default function Checkout(props) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/checkout/${param.id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/checkout/${param.id}`, {
       method: "POST",
       headers: {
         Accept: "application/json",

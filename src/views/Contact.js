@@ -13,7 +13,7 @@ export default function Contact(props) {
   const history = useHistory();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("https://booking-tour-coderschool.herokuapp.com/contact",{
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/contact`,{
       method:'POST',
       headers:{
         'Accept': 'application/json',

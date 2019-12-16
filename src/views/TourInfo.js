@@ -15,8 +15,9 @@ export default function TourInfo(props) {
     user: localStorage.getItem("name")
   });
 
+  console.log(process.env.REACT_APP_API_URL,'key')
+
   const [commentInfo, setCommentInfo] = useState([]);
-  console.log(commentInfo, "commentInfo");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [fetchComment, setFetchComment] = useState([]);
@@ -32,7 +33,7 @@ export default function TourInfo(props) {
 
   const handleSaveBookTour = async () => {
     const response = await fetch(
-      `https://booking-tour-coderschool.herokuapp.com/book-tour/${param.id}`,
+      `${process.env.REACT_APP_API_URL}/book-tour/${param.id}`,
       {
         method: "POST",
         headers: {
@@ -55,7 +56,7 @@ export default function TourInfo(props) {
 
   const getTourImg = async () => {
     const res = await fetch(
-      `https://booking-tour-coderschool.herokuapp.com/tours/${param.id}/pictures`,
+      `${process.env.REACT_APP_API_URL}/tours/${param.id}/pictures`,
       {
         method: "GET",
         headers: {
@@ -72,7 +73,7 @@ export default function TourInfo(props) {
 
   const getTourInfo = async () => {
     const response = await fetch(
-      `https://booking-tour-coderschool.herokuapp.com/destinations/${param.id}`
+      `${process.env.REACT_APP_API_URL}/destinations/${param.id}`
     );
     const data = await response.json();
     setTourInfo(data.tour);
@@ -84,7 +85,7 @@ export default function TourInfo(props) {
 
   const handleSubmitComment = async e => {
     e.preventDefault();
-    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/comment/${param.id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/comment/${param.id}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -99,7 +100,7 @@ export default function TourInfo(props) {
   };
 
   const getComment = async () => {
-    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/comment/${param.id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/comment/${param.id}`, {
       method: "GET",
       headers: {
         Accept: "application/json"
@@ -117,7 +118,7 @@ export default function TourInfo(props) {
     user: localStorage.getItem("name")
   });
   const deleteComment = async tour_id => {
-    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/comment/${tour_id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/comment/${tour_id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

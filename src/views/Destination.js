@@ -26,7 +26,7 @@ export default function Destination(props) {
   const history = useHistory();
   const getTour = async () => {
     const res = await fetch(
-      "https://booking-tour-coderschool.herokuapp.com/tours",
+      `${process.env.REACT_APP_API_URL}/tours`,
       {
         method: "GET",
         headers: {

@@ -9,7 +9,7 @@ export default function Navibar(props) {
   const history = useHistory();
   const alert = useAlert()
   const doLogout = async () => {
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/logout", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/logout`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${localStorage.getItem("token")}`

@@ -11,7 +11,7 @@ export default function Login(props) {
   const alert = useAlert()
   const handleSubmit = async (e) =>{
     e.preventDefault()
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/login",{
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/login`,{
       method:"POST",
       headers: {
         'Accept': 'application/json',
@@ -76,7 +76,7 @@ export default function Login(props) {
           <button className="btn btn-primary btn-block" type="submit">
             Log In
           </button>
-          <button className="btn btn-primary btn-block" onClick={()=>window.location.replace('https://booking-tour-coderschool.herokuapp.com/login/facebook')}>
+          <button className="btn btn-primary btn-block" onClick={()=>window.location.replace('${process.env.REACT_APP_API_URL}/login/facebook')}>
            Facebook
           </button>
         </div>

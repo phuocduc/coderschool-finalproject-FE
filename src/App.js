@@ -17,6 +17,8 @@ import CreateTicketExp from "./views/CreateTicketExp";
 import UpdateImages from "./views/UpdateImages";
 import Checkout from "./views/Checkout";
 
+
+
 function App() {
   // get from url 
   // get from storage
@@ -33,7 +35,7 @@ function App() {
   
 
   const getUser = async () => {
-      const res = await fetch("https://booking-tour-coderschool.herokuapp.com/getuser", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/getuser`, {
         headers: {
           Authorization: `Token ${token}`
         }
@@ -44,18 +46,11 @@ function App() {
           setUser({ name: data.name, role: data.role, email:data.email });
           localStorage.setItem('token', token)
       }
-      
-
-  
-
-    // window.history.replaceState({}, document.title, "/");
   };
 
   useEffect(() => {
     getUser();
   }, []);
-
-  
 
   return (
     <Switch>

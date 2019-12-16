@@ -10,7 +10,7 @@ export default function UpdateTour() {
     const history = useHistory()
     const alert = useAlert()
     const getTourInfo = async () =>{
-        const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/tours/${param.id}`,{
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/tours/${param.id}`,{
             method:'GET',
             headers: {
               'Accept': 'application/json',
@@ -38,7 +38,7 @@ export default function UpdateTour() {
     
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/tours/${param.id}`,{
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/tours/${param.id}`,{
             method:"POST",
             headers: {
               'Accept': 'application/json',

@@ -15,7 +15,7 @@ export default function Adminpage(props) {
   const alert = useAlert();
   console.log("tour", tour);
   const getTourAd = async () => {
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/tours");
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/tours`);
     const data = await res.json();
     setShowTourList(data.tours);
   };
@@ -27,7 +27,7 @@ export default function Adminpage(props) {
   const history = useHistory();
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/tours", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/tours`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -47,7 +47,7 @@ export default function Adminpage(props) {
     }
   };
   const remove_tour = async id => {
-    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/tours/${id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/tours/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

@@ -9,7 +9,7 @@ export default function CreateTicketExp() {
     const param = useParams()
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/products/${param.id}/info`,{
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/products/${param.id}/info`,{
             method:"POST",
             headers:{
                 'Accept': 'application/json',

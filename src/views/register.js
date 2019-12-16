@@ -8,7 +8,7 @@ export default function Register() {
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
-    const res = await fetch("https://booking-tour-coderschool.herokuapp.com/register/",{
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/register/`,{
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

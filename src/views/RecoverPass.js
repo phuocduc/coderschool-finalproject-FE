@@ -12,7 +12,7 @@ export default function RecoverPass(props) {
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/new_password`,  {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/new_password`,  {
           method:"POST",
           headers: {
             'Accept': 'application/json',
