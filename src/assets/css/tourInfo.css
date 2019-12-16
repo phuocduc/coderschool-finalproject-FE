@@ -339,4 +339,14 @@
   }
 }
 
+.name-comment{
+  font-weight: 1000;
+}
+.input-comment{
+  width: 100%;
 
+}
+
+.wrap-comment-input{
+  height: 35px;
+}

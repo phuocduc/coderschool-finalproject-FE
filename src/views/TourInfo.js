@@ -4,18 +4,26 @@ import "../assets/css/tourInfo.css";
 import imageSlider from "../assets/img/sliderNotFound.JPG";
 import { Button, Modal } from "react-bootstrap";
 import Footer from "../components/Footer";
-import {useAlert} from 'react-alert'
+import { useAlert } from "react-alert";
 
 export default function TourInfo(props) {
   const [toursChild, setTourChild] = useState([]);
   const [tourInfo, setTourInfo] = useState({});
   const [show, setShow] = useState(false);
+  const [commentTour, setCommentTour] = useState({
+    comment_tour: "",
+    user: localStorage.getItem("name")
+  });
+
+  const [commentInfo, setCommentInfo] = useState([]);
+  console.log(commentInfo, "commentInfo");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [fetchComment, setFetchComment] = useState([]);
 
   const history = useHistory();
   const param = useParams();
-  const alert = useAlert()
+  const alert = useAlert();
   const [input, setInput] = useState({
     number: "",
     dates: "",
@@ -40,17 +48,6 @@ export default function TourInfo(props) {
       history.push(`/checkout/${data.id}`);
     }
   };
-
-  // const formatCurrency = () =>{
-  //   const num = tourInfo.prices
-  //   console.log('num',num)
-  //   const format = num.toLocaleString()
-  //   return format
-  // }
-
-  // useEffect(()=>{
-  //   formatCurrency()
-  // },[])
 
   const handleInput = e => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -84,6 +81,63 @@ export default function TourInfo(props) {
     getTourInfo();
     getTourImg();
   }, []);
+
+  const handleSubmitComment = async e => {
+    e.preventDefault();
+    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/comment/${param.id}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(commentTour)
+    });
+
+    const data = await res.json();
+    setCommentInfo(data);
+    getComment();
+  };
+
+  const getComment = async () => {
+    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/comment/${param.id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json"
+      }
+    });
+    const data = await res.json();
+    setFetchComment(data.comment);
+  };
+
+  useEffect(() => {
+    getComment();
+  }, []);
+
+  const [removeComment, setRemoveComment] = useState({
+    user: localStorage.getItem("name")
+  });
+  const deleteComment = async tour_id => {
+    const res = await fetch(`https://booking-tour-coderschool.herokuapp.com/comment/${tour_id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(removeComment)
+    });
+    const data = await res.json();
+    if (data.state === "success") {
+      alert.show("Delete your comment", {
+        type: "success"
+      });
+      getComment();
+    }
+    if (data.state === "notUser") {
+      alert.show("Can not delete other comment", {
+        type: "error"
+      });
+    }
+  };
 
   return (
     <div>
@@ -324,30 +378,25 @@ export default function TourInfo(props) {
                         <Modal.Body>
                           <div>
                             <div className="m-3">
-                  <h4>{tourInfo.title}</h4>
+                              <h4>{tourInfo.title}</h4>
                               <div value={input.number}>
-                                <span className="mr-5">
-                                  Client No:
-                                  </span>
-                                 People {input.number} x ₫&nbsp;{tourInfo.prices ? tourInfo.prices.toLocaleString() : "none"}
+                                <span className="mr-5">Client No:</span>
+                                People {input.number} x ₫&nbsp;
+                                {tourInfo.prices
+                                  ? tourInfo.prices.toLocaleString()
+                                  : "none"}
                               </div>
                               <div value={input.dates}>
-                                  <span className="mr-3">
-                                    Booking Date: 
-                                    </span>
-                                   {input.dates}
+                                <span className="mr-3">Booking Date:</span>
+                                {input.dates}
                               </div>
 
                               <div value={input.languages}>
-                               <span className="mr-5">
-                                 Language:
-                                 </span> 
-                                  {input.languages}
+                                <span className="mr-5">Language:</span>
+                                {input.languages}
                               </div>
                               <div value={tourInfo.prices * input.number}>
-                               <span className="mr-5">
-                                 Amount:{"   "}
-                                 </span> 
+                                <span className="mr-5">Amount:{"   "}</span>
                                 {tourInfo.prices
                                   ? (
                                       tourInfo.prices * input.number
@@ -361,7 +410,7 @@ export default function TourInfo(props) {
                               onClick={() => {
                                 props.user
                                   ? handleSaveBookTour()
-                                  : history.push("/login")
+                                  : history.push("/login");
                               }}
                             >
                               Go To Checkout
@@ -418,10 +467,78 @@ export default function TourInfo(props) {
                   </ul>
                 </div>
               </div>
+
+              {/* comment  */}
+
+              <div>
+                <h2 className="mt-3 mb-3">Comment</h2>
+                <form onSubmit={e => handleSubmitComment(e)}>
+                  <div className="d-flex justify-content-between wrap-comment-input mb-3">
+                    <input
+                      type="text"
+                      className="input-comment"
+                      name="comment_tour"
+                      placeholder="leave your comment here..."
+                      onChange={e =>
+                        setCommentTour({
+                          ...commentTour,
+                          comment_tour: e.target.value
+                        })
+                      }
+                    />
+                    {props.user ? (
+                      <button type="submit">Comment</button>
+                    ) : (
+                      <button onClick={() => history.push("/login")}>
+                        Hey
+                      </button>
+                    )}
+                  </div>
+                </form>
+                <div>
+                  {fetchComment &&
+                    fetchComment.map(el => {
+                      return (
+                        <div
+                          key={el.id}
+                          className="d-flex justify-content-between"
+                        >
+                          <div>
+                            <div className="name-comment">
+                              {el.user ? el.user.split("@")[0] : "null"}
+                            </div>
+                            <div>{el.comment}</div>
+                          </div>
+                          <div>
+                            {/* ========= */}
+                            <div className="dropdown">
+                              <button
+                                className="btn dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown"
+                              ></button>
+                              <div className="dropdown-menu">
+                                <a
+                                  className="dropdown-item"
+                                  onClick={() => deleteComment(el.id)}
+                                >
+                                  Delete
+                                </a>
+                              </div>
+                            </div>
+                            {/* =========== */}
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+              {/* end comment */}
             </div>
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );

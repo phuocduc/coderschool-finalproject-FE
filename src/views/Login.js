@@ -7,7 +7,6 @@ import { useAlert } from 'react-alert'
 
 export default function Login(props) {
   const [userLogin, setUserLogin] = useState({})
-
   const history = useHistory()
   const alert = useAlert()
   const handleSubmit = async (e) =>{
@@ -20,8 +19,8 @@ export default function Login(props) {
       },
       body: JSON.stringify(userLogin)
     })
-    const data = await res.json()
 
+    const data = await res.json()
       if (data.state === "no_user")
       {
         alert.show("Please register your email first!")
@@ -41,6 +40,8 @@ export default function Login(props) {
         alert.show("Login Success",{
           type:'success'
         })
+
+        localStorage.setItem('name', userLogin.email)
       }
   }
 

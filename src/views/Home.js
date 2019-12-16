@@ -111,7 +111,7 @@ export default function Home(props) {
       <div className="testimonials-clean">
         <div className="container">
           <div className="intro">
-            <h2 className="text-center" id="feedback">Feedback from our customers</h2>
+            <h2 className="text-center" id="feedback">Testimonial</h2>
             <p className="text-center">
               Our customers love us! Read what they have to say below. Aliquam
               sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet
@@ -127,7 +127,7 @@ export default function Home(props) {
               </div>
               <div className="author">
                 <img className="rounded-circle" src={feedback1} />
-                <h5 className="name">Ben Johnson</h5>
+                <h5 className="name">Happy Polla</h5>
                 <p className="title">CEO of Company Inc.</p>
               </div>
             </div>
