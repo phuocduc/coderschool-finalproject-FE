@@ -245,7 +245,7 @@ export default function TourInfo(props) {
                   <div className="key-detail-list">
                     <span>
                       <i className="fa fa-truck mr-3" aria-hidden="true"></i>
-                      Skip the ticket line
+                      Skip the ticket linee
                     </span>
                   </div>
                   <div className="key-detail-list">
