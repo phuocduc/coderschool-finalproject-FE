@@ -89,7 +89,9 @@ export default function TourInfo(props) {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        Authorization: `token ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json",
+
       },
       body: JSON.stringify(commentTour)
     });
