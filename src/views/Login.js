@@ -76,7 +76,7 @@ export default function Login(props) {
           <button className="btn btn-primary btn-block" type="submit">
             Log In
           </button>
-          <button className="btn btn-primary btn-block" onClick={()=>window.location.replace('${process.env.REACT_APP_API_URL}/login/facebook')}>
+          <button className="btn btn-primary btn-block" onClick={()=>window.location.replace(`${process.env.REACT_APP_API_URL}/login/facebook`)}>
            Facebook
           </button>
         </div>
